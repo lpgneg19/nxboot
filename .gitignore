@@ -26,9 +26,6 @@ xcuserdata
 *.dSYM.zip
 *.dSYM
 
-# IntelliJ IDEA / AppCode
-/.idea
-
 # Build scripts output
 /bin
 /dist

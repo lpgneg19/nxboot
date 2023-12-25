@@ -1,14 +1,13 @@
 #import "MainViewController.h"
-#import "PayloadStorage.h"
 #import "AppDelegate.h"
 #import "FLBootProfile+CoreDataClass.h"
 #import "NXExec.h"
 #import "NXUSBDeviceEnumerator.h"
+#import "PayloadStorage.h"
 
 @interface MainViewController () <
-    NXUSBDeviceEnumeratorDelegate,
-    UIDocumentPickerDelegate
->
+        NXUSBDeviceEnumeratorDelegate,
+        UIDocumentPickerDelegate>
 
 @property (nonatomic, strong) UIColor *textColorButton;
 @property (nonatomic, strong) UIColor *textColorInactive;
@@ -77,8 +76,7 @@
     if (NXExec(self.usbDevice, relocator, payloadData, &error)) {
         self.usbError = nil;
         [self updateDeviceStatus:@"Payload injected 🎉"];
-    }
-    else {
+    } else {
         self.usbError = error;
         [self updateDeviceStatus:@"Payload injection error"];
     }
@@ -132,8 +130,7 @@ typedef NS_ENUM(NSInteger, TableSection) {
         if (editing && !wasEditing) {
             // add new payload row
             [self.tableView insertRowsAtIndexPaths:@[newPayloadPath] withRowAnimation:animation];
-        }
-        else if (!editing && wasEditing) {
+        } else if (!editing && wasEditing) {
             // remove new payload row
             [self.tableView deleteRowsAtIndexPaths:@[newPayloadPath] withRowAnimation:animation];
         }
@@ -262,7 +259,7 @@ typedef NS_ENUM(NSInteger, TableSection) {
 }
 
 - (void)configurePayloadCell:(UITableViewCell *)cell forPayload:(Payload *)payload {
-    cell.accessoryType = payload == self.selectedPayload ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+    cell.accessoryType = (payload == self.selectedPayload) ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
