@@ -487,6 +487,7 @@ typedef NS_ENUM(NSInteger, TableSection) {
 }
 
 - (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentAtURL:(NSURL *)url {
+    // we are provided a local copy due to LSSupportsOpeningDocumentsInPlace=NO in Info.plist (default)
     NSError *error = nil;
     Payload *payload = [self.payloadStorage importPayload:url.path move:YES error:&error];
     if (payload) {
