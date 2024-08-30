@@ -7,6 +7,7 @@
 @end
 
 enum SettingsSection {
+    SettingsSectionRememberPayload,
     SettingsSectionReportCrashes,
     SettingsSectionReportUsage,
     SettingsSectionCount
@@ -31,6 +32,8 @@ enum SettingsSection {
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     switch (section) {
+        case SettingsSectionRememberPayload:
+            return @"Keep the last payload selection across app restarts or navigation. It is booted immediately when a device is connected.";
         case SettingsSectionReportCrashes:
             return @"Anonymously send back crash information with minimal system data to AppCenter. No data is sent until a crash happens.";
         case SettingsSectionReportUsage:
@@ -42,6 +45,13 @@ enum SettingsSection {
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SwitchTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SwitchTableViewCell" forIndexPath:indexPath];
     switch (indexPath.section) {
+        case SettingsSectionRememberPayload:
+            cell.customLabel.text = @"Remember payload selection";
+            cell.customSwitch.on = Settings.rememberPayload;
+            [cell.customSwitch addTarget:self
+                                  action:@selector(setRememberPayload:)
+                        forControlEvents:UIControlEventTouchUpInside];
+            break;
         case SettingsSectionReportCrashes:
             cell.customLabel.text = @"Allow crash reports";
             cell.customSwitch.on = Settings.allowCrashReports;
@@ -61,6 +71,10 @@ enum SettingsSection {
 }
 
 #pragma mark - Switch actions
+
+- (void)setRememberPayload:(UISwitch *)sender {
+    Settings.rememberPayload = sender.on;
+}
 
 - (void)setEnableCrashReports:(UISwitch *)sender {
     Settings.allowCrashReports = sender.on;

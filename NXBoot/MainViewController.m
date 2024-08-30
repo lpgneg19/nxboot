@@ -10,6 +10,7 @@
 
 @interface MainViewController () <
         NXUSBDeviceEnumeratorDelegate,
+        UIAdaptivePresentationControllerDelegate,
         UIDocumentPickerDelegate>
 
 @property (nonatomic, strong) UIColor *textColorButton;
@@ -49,6 +50,7 @@
 
     self.payloadStorage = [PayloadStorage sharedPayloadStorage];
     self.payloads = [[self.payloadStorage loadPayloads] mutableCopy];
+    [self restoreRememberedPayload];
 
     self.usbEnum = [[NXUSBDeviceEnumerator alloc] init];
     self.usbEnum.delegate = self;
@@ -57,6 +59,36 @@
 
     self.navigationItem.leftBarButtonItem = self.settingsButtonItem;
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self restoreRememberedPayload];
+}
+
+- (void)restoreRememberedPayload {
+    if (!Settings.rememberPayload) {
+        return;
+    }
+    
+    NSString *payloadFileName = Settings.lastPayloadFileName;
+    if (!payloadFileName) {
+        return;
+    }
+
+    for (Payload *payload in self.payloads) {
+        if ([payload.path.lastPathComponent isEqualToString:payloadFileName]) {
+            if (self.selectedPayload) {
+                [self cellForPayload:self.selectedPayload].accessoryType = UITableViewCellAccessoryNone;
+            }
+            self.selectedPayload = payload;
+            [self cellForPayload:payload].accessoryType = UITableViewCellAccessoryCheckmark;
+            return;
+        }
+    }
+
+    // if we got here, then the referenced payload no longer exists
+    Settings.lastPayloadFileName = nil;
 }
 
 - (void)dealloc {
@@ -110,6 +142,7 @@ typedef NS_ENUM(NSInteger, TableSection) {
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:TableSectionPayloads]
                   withRowAnimation:UITableViewRowAnimationAutomatic];
     [self.tableView endUpdates];
+    [self restoreRememberedPayload];
 }
 
 - (IBAction)refreshPayloadList:(id)sender {
@@ -152,6 +185,10 @@ typedef NS_ENUM(NSInteger, TableSection) {
     [self.tableView footerViewForSection:TableSectionPayloads].textLabel.text = [self tableView:self.tableView titleForFooterInSection:TableSectionPayloads];
 
     [self.tableView endUpdates];
+
+    if (!editing && wasEditing) {
+        [self restoreRememberedPayload];
+    }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -226,7 +263,7 @@ typedef NS_ENUM(NSInteger, TableSection) {
             } else {
                 UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PayloadCell" forIndexPath:indexPath];
                 Payload *payload = self.payloads[indexPath.row];
-                [self configurePayloadCell:cell forPayload:payload];
+                cell.accessoryType = (payload == self.selectedPayload) ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
                 cell.textLabel.text = payload.displayName;
                 cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ (%llu KiB)",
                                              [self.payloadDateFormatter stringFromDate:payload.fileDate],
@@ -268,10 +305,6 @@ typedef NS_ENUM(NSInteger, TableSection) {
     [self configureDeviceCell:[self.tableView cellForRowAtIndexPath:indexPath]];
     [self.tableView footerViewForSection:TableSectionDevice].textLabel.text = [self footerForDeviceCell];
     [self.tableView endUpdates];
-}
-
-- (void)configurePayloadCell:(UITableViewCell *)cell forPayload:(Payload *)payload {
-    cell.accessoryType = (payload == self.selectedPayload) ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -368,6 +401,7 @@ typedef NS_ENUM(NSInteger, TableSection) {
                     [self renamePayload:payload];
                 } else if ([self.selectedPayload isEqual:payload]) {
                     self.selectedPayload = nil;
+                    Settings.lastPayloadFileName = nil;
                     [self.tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryNone;
                 } else {
                     if (self.selectedPayload) {
@@ -375,6 +409,7 @@ typedef NS_ENUM(NSInteger, TableSection) {
                     }
                     [self.tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryCheckmark;
                     self.selectedPayload = payload;
+                    Settings.lastPayloadFileName = payload.path.lastPathComponent;
                     if (self.usbDevice) {
                         [self updateDeviceStatus:@"Booting payload..."];
                         [self bootPayload:payload];
@@ -499,13 +534,20 @@ typedef NS_ENUM(NSInteger, TableSection) {
     [self performSegueWithIdentifier:@"Settings" sender:self];
 }
 
-- (IBAction)settingsUnwindAction:(UIStoryboardSegue *)unwindSegue {}
+- (IBAction)settingsUnwindAction:(UIStoryboardSegue *)unwindSegue {
+    [self restoreRememberedPayload];
+}
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if (self.selectedPayload) {
         [self cellForPayload:self.selectedPayload].accessoryType = UITableViewCellAccessoryNone;
         self.selectedPayload = nil;
     }
+    segue.destinationViewController.presentationController.delegate = self;
+}
+
+- (void)presentationControllerDidDismiss:(UIPresentationController *)presentationController {
+    [self restoreRememberedPayload];
 }
 
 #pragma mark - NXUSBDeviceEnumeratorDelegate

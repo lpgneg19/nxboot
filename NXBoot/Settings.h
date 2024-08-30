@@ -4,6 +4,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Settings : NSObject
 
+@property (nonatomic, class, assign) BOOL rememberPayload;
+@property (nonatomic, class, strong, nullable) NSString *lastPayloadFileName;
 @property (nonatomic, class, assign) BOOL allowCrashReports;
 @property (nonatomic, class, assign) BOOL allowUsagePings;
 
