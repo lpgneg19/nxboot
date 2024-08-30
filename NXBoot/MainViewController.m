@@ -50,7 +50,7 @@
 
     self.usbEnum = [[NXUSBDeviceEnumerator alloc] init];
     self.usbEnum.delegate = self;
-    [self.usbEnum setFilterForVendorID:kTegraNintendoSwitchVendorID productID:kTegraNintendoSwitchProductID];
+    [self.usbEnum setFilterForVendorID:kTegraX1VendorID productID:kTegraX1ProductID];
     [self.usbEnum start];
 
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
@@ -74,7 +74,7 @@
 
     assert(self.usbDevice != nil);
     NSString *error = nil;
-    if (NXExec(self.usbDevice->_intf, relocator, payloadData, &error)) {
+    if (NXExec(self.usbDevice, relocator, payloadData, &error)) {
         self.usbError = nil;
         [self updateDeviceStatus:@"Payload injected 🎉"];
     }
