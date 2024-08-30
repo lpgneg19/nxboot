@@ -1,10 +1,5 @@
-/**
- * @file NXBootKit logging
- * @author Oliver Kuckertz <oliver.kuckertz@mologie.de
- */
+#import <NXBootKit/NXVisibility.h>
 
-#pragma once
-
-extern BOOL NXBootKitDebugEnabled;
+NXBOOTKIT_PUBLIC extern BOOL NXBootKitDebugEnabled;
 
 #define NXLog(...) do { if (NXBootKitDebugEnabled) NSLog(__VA_ARGS__); } while (0)

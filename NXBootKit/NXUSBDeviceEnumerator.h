@@ -1,12 +1,6 @@
-/**
- * @file listens for USB device connections matching a PID and VID
- * @author Oliver Kuckertz <oliver.kuckertz@mologie.de>
- */
-
-#pragma once
-
 #import <Foundation/Foundation.h>
 #import <NXBootKit/NXUSBDevice.h>
+#import <NXBootKit/NXVisibility.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -18,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)usbDeviceEnumerator:(NXUSBDeviceEnumerator *)deviceEnum deviceError:(NSString *)err;
 @end
 
+NXBOOTKIT_PUBLIC
 @interface NXUSBDeviceEnumerator : NSObject
 @property (weak, nonatomic) id<NXUSBDeviceEnumeratorDelegate> delegate;
 - (void)setFilterForVendorID:(UInt16)vendorID productID:(UInt16)productID;

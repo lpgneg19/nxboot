@@ -1,11 +1,5 @@
-/**
- * @file uses Hekate's payload storage for customizing boot behavior
- * @author Oliver Kuckertz <oliver.kuckertz@mologie.de>
- */
-
-#pragma once
-
 #import <Foundation/Foundation.h>
+#import <NXBootKit/NXVisibility.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -26,6 +20,7 @@ typedef NS_ENUM(NSInteger, NXHekateStorageTarget) {
     NXHekateStorageTargetEmuGPP
 };
 
+NXBOOTKIT_PUBLIC
 @interface NXHekateCustomizer : NSObject
 
 - (instancetype)initWithPayload:(NSData *)payload;

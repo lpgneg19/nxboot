@@ -1,11 +1,3 @@
-/**
- * @file listens for USB device connections matching a PID and VID
- * @author Oliver Kuckertz <oliver.kuckertz@mologie.de>
- *
- * The control flow of this class is from Apple's "Another USB Notification Example", though most of it has been
- * adapted to Objective-C and the requirements of this application.
- */
-
 #import "NXUSBDeviceEnumerator.h"
 #import "NXBootKit.h"
 #import <IOKit/IOKitLib.h>
@@ -13,14 +5,16 @@
 #import <IOKit/IOMessage.h>
 #import <IOKit/usb/IOUSBLib.h>
 #import <mach/mach.h>
+#import <TargetConditionals.h>
 
-// kIOMasterPortDefault was renamed to kIOMainPortDefault, and marked as unavailable on iOS.
-// This is not true and the API is still available.
-// We keep using the deprecated name here for compatibility with iOS versions before 15.
+#ifndef NXBOOTMAC_BUILDING
+// use kIOMasterPortDefault for NXBoot iOS and command line builds for compatibility
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wavailability"
 extern const mach_port_t kIOMasterPortDefault __API_AVAILABLE(ios(1.0));
 #pragma clang diagnostic pop
+#define kIOMainPortDefault kIOMasterPortDefault
+#endif
 
 #define ERR(FMT, ...) [self handleError:[NSString stringWithFormat:FMT, ##__VA_ARGS__]]
 
@@ -76,7 +70,7 @@ static void bridgeDeviceNotification(void *u, io_service_t service, natural_t me
     [matchingDict setValue:@(self.VID) forKey:@(kUSBVendorID)];
     [matchingDict setValue:@(self.PID) forKey:@(kUSBProductID)];
 
-    self.notifyPort = IONotificationPortCreate(kIOMasterPortDefault);
+    self.notifyPort = IONotificationPortCreate(kIOMainPortDefault);
     if (!self.notifyPort) {
         ERR(@"Could not create notification port");
         return;
@@ -150,7 +144,7 @@ static void bridgeDeviceNotification(void *u, io_service_t service, natural_t me
         }
         kr = (*plugInInterface)->QueryInterface(plugInInterface,
                                                 CFUUIDGetUUIDBytes(kNXUSBDeviceInterfaceUUID),
-                                                (void*)&device->_intf);
+                                                (void *)&device->_intf);
         NXCOMCall(plugInInterface, Release);
         plugInInterface = NULL;
         if (kr || !device->_intf) {
@@ -183,6 +177,10 @@ static void bridgeDeviceNotification(void *u, io_service_t service, natural_t me
 
     cleanup:
         kr = IOObjectRelease(service);
+        if (kr != KERN_SUCCESS) {
+            ERR(@"IOObjectRelease for device failed with code 0x%08x", kr);
+            goto cleanup;
+        }
     }
 }
 

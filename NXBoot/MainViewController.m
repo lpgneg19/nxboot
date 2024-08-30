@@ -1,14 +1,17 @@
 #import "MainViewController.h"
-#import "PayloadStorage.h"
 #import "AppDelegate.h"
 #import "FLBootProfile+CoreDataClass.h"
 #import "NXExec.h"
 #import "NXUSBDeviceEnumerator.h"
+#import "PayloadStorage.h"
+#import "Settings.h"
+
+@import AppCenterAnalytics;
 
 @interface MainViewController () <
-    NXUSBDeviceEnumeratorDelegate,
-    UIDocumentPickerDelegate
->
+        NXUSBDeviceEnumeratorDelegate,
+        UIAdaptivePresentationControllerDelegate,
+        UIDocumentPickerDelegate>
 
 @property (nonatomic, strong) UIColor *textColorButton;
 @property (nonatomic, strong) UIColor *textColorInactive;
@@ -47,13 +50,45 @@
 
     self.payloadStorage = [PayloadStorage sharedPayloadStorage];
     self.payloads = [[self.payloadStorage loadPayloads] mutableCopy];
+    [self restoreRememberedPayload];
 
     self.usbEnum = [[NXUSBDeviceEnumerator alloc] init];
     self.usbEnum.delegate = self;
-    [self.usbEnum setFilterForVendorID:kTegraNintendoSwitchVendorID productID:kTegraNintendoSwitchProductID];
+    [self.usbEnum setFilterForVendorID:kTegraX1VendorID productID:kTegraX1ProductID];
     [self.usbEnum start];
 
+    self.navigationItem.leftBarButtonItem = self.settingsButtonItem;
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self restoreRememberedPayload];
+}
+
+- (void)restoreRememberedPayload {
+    if (!Settings.rememberPayload) {
+        return;
+    }
+    
+    NSString *payloadFileName = Settings.lastPayloadFileName;
+    if (!payloadFileName) {
+        return;
+    }
+
+    for (Payload *payload in self.payloads) {
+        if ([payload.path.lastPathComponent isEqualToString:payloadFileName]) {
+            if (self.selectedPayload) {
+                [self cellForPayload:self.selectedPayload].accessoryType = UITableViewCellAccessoryNone;
+            }
+            self.selectedPayload = payload;
+            [self cellForPayload:payload].accessoryType = UITableViewCellAccessoryCheckmark;
+            return;
+        }
+    }
+
+    // if we got here, then the referenced payload no longer exists
+    Settings.lastPayloadFileName = nil;
 }
 
 - (void)dealloc {
@@ -74,13 +109,20 @@
 
     assert(self.usbDevice != nil);
     NSString *error = nil;
-    if (NXExec(self.usbDevice->_intf, relocator, payloadData, &error)) {
+    if (NXExec(self.usbDevice, relocator, payloadData, &error)) {
         self.usbError = nil;
         [self updateDeviceStatus:@"Payload injected 🎉"];
-    }
-    else {
+    } else {
         self.usbError = error;
         [self updateDeviceStatus:@"Payload injection error"];
+    }
+
+    if (Settings.allowUsagePings) {
+        if (error) {
+            [MSACAnalytics trackEvent:@"SwitchBootFailure" withProperties:@{@"error": error}];
+        } else {
+            [MSACAnalytics trackEvent:@"SwitchBootSuccess"];
+        }
     }
 }
 
@@ -100,6 +142,7 @@ typedef NS_ENUM(NSInteger, TableSection) {
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:TableSectionPayloads]
                   withRowAnimation:UITableViewRowAnimationAutomatic];
     [self.tableView endUpdates];
+    [self restoreRememberedPayload];
 }
 
 - (IBAction)refreshPayloadList:(id)sender {
@@ -132,8 +175,7 @@ typedef NS_ENUM(NSInteger, TableSection) {
         if (editing && !wasEditing) {
             // add new payload row
             [self.tableView insertRowsAtIndexPaths:@[newPayloadPath] withRowAnimation:animation];
-        }
-        else if (!editing && wasEditing) {
+        } else if (!editing && wasEditing) {
             // remove new payload row
             [self.tableView deleteRowsAtIndexPaths:@[newPayloadPath] withRowAnimation:animation];
         }
@@ -143,6 +185,10 @@ typedef NS_ENUM(NSInteger, TableSection) {
     [self.tableView footerViewForSection:TableSectionPayloads].textLabel.text = [self tableView:self.tableView titleForFooterInSection:TableSectionPayloads];
 
     [self.tableView endUpdates];
+
+    if (!editing && wasEditing) {
+        [self restoreRememberedPayload];
+    }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -217,7 +263,7 @@ typedef NS_ENUM(NSInteger, TableSection) {
             } else {
                 UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PayloadCell" forIndexPath:indexPath];
                 Payload *payload = self.payloads[indexPath.row];
-                [self configurePayloadCell:cell forPayload:payload];
+                cell.accessoryType = (payload == self.selectedPayload) ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
                 cell.textLabel.text = payload.displayName;
                 cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ (%llu KiB)",
                                              [self.payloadDateFormatter stringFromDate:payload.fileDate],
@@ -259,10 +305,6 @@ typedef NS_ENUM(NSInteger, TableSection) {
     [self configureDeviceCell:[self.tableView cellForRowAtIndexPath:indexPath]];
     [self.tableView footerViewForSection:TableSectionDevice].textLabel.text = [self footerForDeviceCell];
     [self.tableView endUpdates];
-}
-
-- (void)configurePayloadCell:(UITableViewCell *)cell forPayload:(Payload *)payload {
-    cell.accessoryType = payload == self.selectedPayload ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -359,6 +401,7 @@ typedef NS_ENUM(NSInteger, TableSection) {
                     [self renamePayload:payload];
                 } else if ([self.selectedPayload isEqual:payload]) {
                     self.selectedPayload = nil;
+                    Settings.lastPayloadFileName = nil;
                     [self.tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryNone;
                 } else {
                     if (self.selectedPayload) {
@@ -366,6 +409,7 @@ typedef NS_ENUM(NSInteger, TableSection) {
                     }
                     [self.tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryCheckmark;
                     self.selectedPayload = payload;
+                    Settings.lastPayloadFileName = payload.path.lastPathComponent;
                     if (self.usbDevice) {
                         [self updateDeviceStatus:@"Booting payload..."];
                         [self bootPayload:payload];
@@ -443,13 +487,25 @@ typedef NS_ENUM(NSInteger, TableSection) {
 }
 
 - (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentAtURL:(NSURL *)url {
+    // we are provided a local copy due to LSSupportsOpeningDocumentsInPlace=NO in Info.plist (default)
     NSError *error = nil;
     Payload *payload = [self.payloadStorage importPayload:url.path move:YES error:&error];
     if (payload) {
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.payloads.count inSection:TableSectionPayloads];
+        [self.tableView beginUpdates];
         [self.payloads addObject:payload];
         [self.payloadStorage storePayloadSortOrder:self.payloads];
-        [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        if (self.payloads.count == 1 && !self.editing) {
+            // remove add payload cell
+            NSIndexPath *addButtonPath = [NSIndexPath indexPathForRow:0 inSection:TableSectionPayloads];
+            [self.tableView deleteRowsAtIndexPaths:@[addButtonPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            // simultaneously insert the first entry below it
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:TableSectionPayloads];
+            [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        } else {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:(self.payloads.count - 1) inSection:TableSectionPayloads];
+            [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
+        [self.tableView endUpdates];
     } else {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Import Failed"
                                                                        message:error.localizedDescription
@@ -461,11 +517,38 @@ typedef NS_ENUM(NSInteger, TableSection) {
 
 #pragma mark - Navigation
 
+- (UIBarButtonItem *)settingsButtonItem {
+    if (@available(iOS 13, *)) {
+        return [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"gearshape"]
+                                                style:UIBarButtonItemStylePlain
+                                               target:self
+                                               action:@selector(settingsButtonTapped:)];
+    } else {
+        return [[UIBarButtonItem alloc] initWithTitle:@"Settings"
+                                                style:UIBarButtonItemStylePlain
+                                               target:self
+                                               action:@selector(settingsButtonTapped:)];
+    }
+}
+
+- (void)settingsButtonTapped:(id)sender {
+    [self performSegueWithIdentifier:@"Settings" sender:self];
+}
+
+- (IBAction)settingsUnwindAction:(UIStoryboardSegue *)unwindSegue {
+    [self restoreRememberedPayload];
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if (self.selectedPayload) {
         [self cellForPayload:self.selectedPayload].accessoryType = UITableViewCellAccessoryNone;
         self.selectedPayload = nil;
     }
+    segue.destinationViewController.presentationController.delegate = self;
+}
+
+- (void)presentationControllerDidDismiss:(UIPresentationController *)presentationController {
+    [self restoreRememberedPayload];
 }
 
 #pragma mark - NXUSBDeviceEnumeratorDelegate

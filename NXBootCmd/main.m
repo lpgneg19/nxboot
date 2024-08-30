@@ -1,5 +1,6 @@
 /**
- * @file command-line tool for RCM exploitation of the Nintendo Switch
+ * @file main.m
+ * @brief command-line tool for RCM exploitation of the Nintendo Switch
  * @author Oliver Kuckertz <oliver.kuckertz@mologie.de>
  */
 
@@ -18,7 +19,7 @@
 #define ESC       "\033[0m"
 #define ESC_LN    ESC "\n"
 
-#define COPYRIGHT_STR "Copyright 2018-2023 Oliver Kuckertz <oliver.kuckertz@mologie.de>"
+#define COPYRIGHT_STR "Copyright 2018-2024 Oliver Kuckertz <oliver.kuckertz@mologie.de>"
 #define LICENSE_STR   "Licensed under the GPLv3. https://github.com/mologie/nxboot#license"
 
 static volatile sig_atomic_t gTerm = 0;
@@ -39,7 +40,7 @@ static volatile sig_atomic_t gTerm = 0;
 - (void)start {
     self.usbEnum = [[NXUSBDeviceEnumerator alloc] init];
     self.usbEnum.delegate = self;
-    [self.usbEnum setFilterForVendorID:kTegraNintendoSwitchVendorID productID:kTegraNintendoSwitchProductID];
+    [self.usbEnum setFilterForVendorID:kTegraX1VendorID productID:kTegraX1ProductID];
     [self.usbEnum start];
 }
 
