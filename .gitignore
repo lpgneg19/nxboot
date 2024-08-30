@@ -6,10 +6,6 @@
 # Managed by bundler
 vendor/bundle/
 
-# AppCenter xcframework binaries
-# TODO: There is no automated download method for those yet, consider using SPM
-vendor/Frameworks/
-
 # Xcode user
 xcuserdata
 *.xcuserstate
