@@ -7,8 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1104E3272B4AE3DC00DF24B5 /* NXVisibility.h in Headers */ = {isa = PBXBuildFile; fileRef = 1104E3262B4AE3DC00DF24B5 /* NXVisibility.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		115E6FE02A224E1800DF24B5 /* Help.html in Resources */ = {isa = PBXBuildFile; fileRef = 115E6FDF2A224E1200DF24B5 /* Help.html */; };
 		1173BB8E2A20C38500DF24B5 /* intermezzo.bin in Resources */ = {isa = PBXBuildFile; fileRef = 1173BB8D2A20C38500DF24B5 /* intermezzo.bin */; };
+		119EEF892B499E5100DF24B5 /* NXExec.m in Sources */ = {isa = PBXBuildFile; fileRef = A73FDCEC20FA9C71007EBF4F /* NXExec.m */; };
+		119EEF8A2B499E5400DF24B5 /* NXHekateCustomizer.m in Sources */ = {isa = PBXBuildFile; fileRef = A7CD57E72556FB8B006AA85B /* NXHekateCustomizer.m */; };
+		119EEF8B2B499E5700DF24B5 /* NXLog.m in Sources */ = {isa = PBXBuildFile; fileRef = A7388F742100F54A00A60C1B /* NXLog.m */; };
+		119EEF8C2B499E5A00DF24B5 /* NXUSBDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = A73FDCF220FA9C72007EBF4F /* NXUSBDevice.m */; };
+		119EEF8D2B499E5D00DF24B5 /* NXUSBDeviceEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = A73FDCEE20FA9C71007EBF4F /* NXUSBDeviceEnumerator.m */; };
+		119EEF8E2B499F2600DF24B5 /* NXExec.h in Headers */ = {isa = PBXBuildFile; fileRef = A73FDCF120FA9C72007EBF4F /* NXExec.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		119EEF8F2B499F2A00DF24B5 /* NXHekateCustomizer.h in Headers */ = {isa = PBXBuildFile; fileRef = A7CD57E62556FB8B006AA85B /* NXHekateCustomizer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		119EEF902B499F2E00DF24B5 /* NXLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 50410F4326C8753B00DF24B5 /* NXLog.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		119EEF912B499F3300DF24B5 /* NXUSBDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = A73FDCED20FA9C71007EBF4F /* NXUSBDevice.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		119EEF922B499F3600DF24B5 /* NXUSBDeviceEnumerator.h in Headers */ = {isa = PBXBuildFile; fileRef = A73FDCF320FA9C72007EBF4F /* NXUSBDeviceEnumerator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		11C8550C2A2582E300DF24B5 /* NXUSBDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = A73FDCF220FA9C72007EBF4F /* NXUSBDevice.m */; };
 		11C8550D2A2582E300DF24B5 /* NXExec.m in Sources */ = {isa = PBXBuildFile; fileRef = A73FDCEC20FA9C71007EBF4F /* NXExec.m */; };
 		11C8550E2A2582E300DF24B5 /* NXUSBDeviceEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = A73FDCEE20FA9C71007EBF4F /* NXUSBDeviceEnumerator.m */; };
@@ -73,6 +84,7 @@
 		115E6FE82A2356FA00DF24B5 /* NXBootJailbreak.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NXBootJailbreak.entitlements; sourceTree = "<group>"; };
 		115E70012A251E9A00DF24B5 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		1173BB8D2A20C38500DF24B5 /* intermezzo.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = intermezzo.bin; sourceTree = "<group>"; };
+		119EEF7D2B499DF000DF24B5 /* NXBootKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NXBootKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		50410F3826C874B200DF24B5 /* NXBootKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NXBootKit.h; sourceTree = "<group>"; };
 		50410F4326C8753B00DF24B5 /* NXLog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NXLog.h; sourceTree = "<group>"; };
 		A701175E20EE320F00B3D45B /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
@@ -109,6 +121,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		119EEF7A2B499DF000DF24B5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A795B6B221015F880008820F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -199,6 +218,7 @@
 			children = (
 				A7FDBE1420EE27DD00E59587 /* NXBoot.app */,
 				A795B6B521015F880008820F /* nxboot */,
+				119EEF7D2B499DF000DF24B5 /* NXBootKit.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -238,7 +258,41 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		119EEF782B499DF000DF24B5 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				119EEF8F2B499F2A00DF24B5 /* NXHekateCustomizer.h in Headers */,
+				119EEF902B499F2E00DF24B5 /* NXLog.h in Headers */,
+				1104E3272B4AE3DC00DF24B5 /* NXVisibility.h in Headers */,
+				119EEF8E2B499F2600DF24B5 /* NXExec.h in Headers */,
+				119EEF912B499F3300DF24B5 /* NXUSBDevice.h in Headers */,
+				119EEF922B499F3600DF24B5 /* NXUSBDeviceEnumerator.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
+		119EEF7C2B499DF000DF24B5 /* NXBootKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 119EEF852B499DF100DF24B5 /* Build configuration list for PBXNativeTarget "NXBootKit" */;
+			buildPhases = (
+				119EEF782B499DF000DF24B5 /* Headers */,
+				119EEF792B499DF000DF24B5 /* Sources */,
+				119EEF7A2B499DF000DF24B5 /* Frameworks */,
+				119EEF7B2B499DF000DF24B5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NXBootKit;
+			productName = NXBootKit;
+			productReference = 119EEF7D2B499DF000DF24B5 /* NXBootKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		A795B6B421015F880008820F /* NXBootCmd */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = A795B6BB21015F880008820F /* Build configuration list for PBXNativeTarget "NXBootCmd" */;
@@ -288,6 +342,9 @@
 				LastUpgradeCheck = 1540;
 				ORGANIZATIONNAME = "Oliver Kuckertz";
 				TargetAttributes = {
+					119EEF7C2B499DF000DF24B5 = {
+						CreatedOnToolsVersion = 15.1;
+					};
 					A795B6B421015F880008820F = {
 						CreatedOnToolsVersion = 9.4.1;
 					};
@@ -317,12 +374,20 @@
 			projectRoot = "";
 			targets = (
 				A7FDBE1320EE27DD00E59587 /* NXBoot */,
+				119EEF7C2B499DF000DF24B5 /* NXBootKit */,
 				A795B6B421015F880008820F /* NXBootCmd */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		119EEF7B2B499DF000DF24B5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A7FDBE1220EE27DD00E59587 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -339,6 +404,18 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		119EEF792B499DF000DF24B5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				119EEF8D2B499E5D00DF24B5 /* NXUSBDeviceEnumerator.m in Sources */,
+				119EEF8C2B499E5A00DF24B5 /* NXUSBDevice.m in Sources */,
+				119EEF8B2B499E5700DF24B5 /* NXLog.m in Sources */,
+				119EEF8A2B499E5400DF24B5 /* NXHekateCustomizer.m in Sources */,
+				119EEF892B499E5100DF24B5 /* NXExec.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A795B6B121015F880008820F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -393,6 +470,98 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		119EEF862B499DF100DF24B5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				ENABLE_TESTABILITY = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"NXBOOTKIT_BUILDING=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2018-2024 Oliver Kuckertz. All rights reserved.";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mologie.NXBootKit;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		119EEF872B499DF100DF24B5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				ENABLE_TESTABILITY = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"NXBOOTKIT_BUILDING=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2018-2024 Oliver Kuckertz. All rights reserved.";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mologie.NXBootKit;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		A795B6B921015F880008820F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -627,6 +796,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		119EEF852B499DF100DF24B5 /* Build configuration list for PBXNativeTarget "NXBootKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				119EEF862B499DF100DF24B5 /* Debug */,
+				119EEF872B499DF100DF24B5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		A795B6BB21015F880008820F /* Build configuration list for PBXNativeTarget "NXBootCmd" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
