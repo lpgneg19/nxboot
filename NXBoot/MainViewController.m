@@ -4,6 +4,9 @@
 #import "NXExec.h"
 #import "NXUSBDeviceEnumerator.h"
 #import "PayloadStorage.h"
+#import "Settings.h"
+
+@import AppCenterAnalytics;
 
 @interface MainViewController () <
         NXUSBDeviceEnumeratorDelegate,
@@ -52,6 +55,7 @@
     [self.usbEnum setFilterForVendorID:kTegraX1VendorID productID:kTegraX1ProductID];
     [self.usbEnum start];
 
+    self.navigationItem.leftBarButtonItem = self.settingsButtonItem;
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
@@ -79,6 +83,14 @@
     } else {
         self.usbError = error;
         [self updateDeviceStatus:@"Payload injection error"];
+    }
+
+    if (Settings.allowUsagePings) {
+        if (error) {
+            [MSACAnalytics trackEvent:@"SwitchBootFailure" withProperties:@{@"error": error}];
+        } else {
+            [MSACAnalytics trackEvent:@"SwitchBootSuccess"];
+        }
     }
 }
 
@@ -468,6 +480,26 @@ typedef NS_ENUM(NSInteger, TableSection) {
 }
 
 #pragma mark - Navigation
+
+- (UIBarButtonItem *)settingsButtonItem {
+    if (@available(iOS 13, *)) {
+        return [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"gearshape"]
+                                                style:UIBarButtonItemStylePlain
+                                               target:self
+                                               action:@selector(settingsButtonTapped:)];
+    } else {
+        return [[UIBarButtonItem alloc] initWithTitle:@"Settings"
+                                                style:UIBarButtonItemStylePlain
+                                               target:self
+                                               action:@selector(settingsButtonTapped:)];
+    }
+}
+
+- (void)settingsButtonTapped:(id)sender {
+    [self performSegueWithIdentifier:@"Settings" sender:self];
+}
+
+- (IBAction)settingsUnwindAction:(UIStoryboardSegue *)unwindSegue {}
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if (self.selectedPayload) {

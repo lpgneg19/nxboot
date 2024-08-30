@@ -8,7 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		1104E3272B4AE3DC00DF24B5 /* NXVisibility.h in Headers */ = {isa = PBXBuildFile; fileRef = 1104E3262B4AE3DC00DF24B5 /* NXVisibility.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1108AB1A2B4E158100DF24B5 /* AppCenterCrashes.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1108AB142B4E158100DF24B5 /* AppCenterCrashes.xcframework */; };
+		1108AB1B2B4E158100DF24B5 /* AppCenterAnalytics.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1108AB152B4E158100DF24B5 /* AppCenterAnalytics.xcframework */; };
+		1108AB1F2B4E158100DF24B5 /* AppCenter.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1108AB192B4E158100DF24B5 /* AppCenter.xcframework */; };
+		1158CFFD2B3AF52400DF24B5 /* SwitchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1158CFFC2B3AF52400DF24B5 /* SwitchTableViewCell.m */; };
+		1158D0002B3AF5CE00DF24B5 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1158CFFF2B3AF5CE00DF24B5 /* SettingsViewController.m */; };
 		115E6FE02A224E1800DF24B5 /* Help.html in Resources */ = {isa = PBXBuildFile; fileRef = 115E6FDF2A224E1200DF24B5 /* Help.html */; };
+		116765F92B42104000DF24B5 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 116765F82B42104000DF24B5 /* Settings.m */; };
 		1173BB8E2A20C38500DF24B5 /* intermezzo.bin in Resources */ = {isa = PBXBuildFile; fileRef = 1173BB8D2A20C38500DF24B5 /* intermezzo.bin */; };
 		119EEF892B499E5100DF24B5 /* NXExec.m in Sources */ = {isa = PBXBuildFile; fileRef = A73FDCEC20FA9C71007EBF4F /* NXExec.m */; };
 		119EEF8A2B499E5400DF24B5 /* NXHekateCustomizer.m in Sources */ = {isa = PBXBuildFile; fileRef = A7CD57E72556FB8B006AA85B /* NXHekateCustomizer.m */; };
@@ -80,9 +86,18 @@
 
 /* Begin PBXFileReference section */
 		1104E3262B4AE3DC00DF24B5 /* NXVisibility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NXVisibility.h; sourceTree = "<group>"; };
+		1108AB142B4E158100DF24B5 /* AppCenterCrashes.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AppCenterCrashes.xcframework; sourceTree = "<group>"; };
+		1108AB152B4E158100DF24B5 /* AppCenterAnalytics.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AppCenterAnalytics.xcframework; sourceTree = "<group>"; };
+		1108AB192B4E158100DF24B5 /* AppCenter.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AppCenter.xcframework; sourceTree = "<group>"; };
+		1158CFFB2B3AF52400DF24B5 /* SwitchTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwitchTableViewCell.h; sourceTree = "<group>"; };
+		1158CFFC2B3AF52400DF24B5 /* SwitchTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SwitchTableViewCell.m; sourceTree = "<group>"; };
+		1158CFFE2B3AF5CE00DF24B5 /* SettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		1158CFFF2B3AF5CE00DF24B5 /* SettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		115E6FDF2A224E1200DF24B5 /* Help.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Help.html; sourceTree = "<group>"; };
 		115E6FE82A2356FA00DF24B5 /* NXBootJailbreak.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NXBootJailbreak.entitlements; sourceTree = "<group>"; };
 		115E70012A251E9A00DF24B5 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		116765F72B42104000DF24B5 /* Settings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
+		116765F82B42104000DF24B5 /* Settings.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Settings.m; sourceTree = "<group>"; };
 		1173BB8D2A20C38500DF24B5 /* intermezzo.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = intermezzo.bin; sourceTree = "<group>"; };
 		119EEF7D2B499DF000DF24B5 /* NXBootKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NXBootKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		50410F3826C874B200DF24B5 /* NXBootKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NXBootKit.h; sourceTree = "<group>"; };
@@ -140,13 +155,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1108AB1A2B4E158100DF24B5 /* AppCenterCrashes.xcframework in Frameworks */,
 				A701175F20EE320F00B3D45B /* WebKit.framework in Frameworks */,
+				1108AB1B2B4E158100DF24B5 /* AppCenterAnalytics.xcframework in Frameworks */,
+				1108AB1F2B4E158100DF24B5 /* AppCenter.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1108AB132B4E158100DF24B5 /* AppCenter-SDK-Apple-4.4.3 */ = {
+			isa = PBXGroup;
+			children = (
+				1108AB192B4E158100DF24B5 /* AppCenter.xcframework */,
+				1108AB152B4E158100DF24B5 /* AppCenterAnalytics.xcframework */,
+				1108AB142B4E158100DF24B5 /* AppCenterCrashes.xcframework */,
+			);
+			name = "AppCenter-SDK-Apple-4.4.3";
+			path = "vendor/AppCenter-SDK-Apple-4.4.3";
+			sourceTree = SOURCE_ROOT;
+		};
 		A717F07C211643ED000B4705 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
@@ -196,6 +225,12 @@
 				A7C4EA1520EE2D1B0026FFC9 /* MainViewController.m */,
 				A765643D20F4D265005EC7E6 /* PayloadStorage.h */,
 				A765643E20F4D265005EC7E6 /* PayloadStorage.m */,
+				116765F72B42104000DF24B5 /* Settings.h */,
+				116765F82B42104000DF24B5 /* Settings.m */,
+				1158CFFE2B3AF5CE00DF24B5 /* SettingsViewController.h */,
+				1158CFFF2B3AF5CE00DF24B5 /* SettingsViewController.m */,
+				1158CFFB2B3AF52400DF24B5 /* SwitchTableViewCell.h */,
+				1158CFFC2B3AF52400DF24B5 /* SwitchTableViewCell.m */,
 			);
 			name = Sources;
 			sourceTree = "<group>";
@@ -226,6 +261,7 @@
 		A7FDBE1620EE27DD00E59587 /* NXBoot */ = {
 			isa = PBXGroup;
 			children = (
+				1108AB132B4E158100DF24B5 /* AppCenter-SDK-Apple-4.4.3 */,
 				A7FDBE3320EE2AC600E59587 /* Resources */,
 				A7C4EA1320EE2B050026FFC9 /* Sources */,
 			);
@@ -434,6 +470,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				A7FDBE2720EE27DE00E59587 /* main.m in Sources */,
+				1158CFFD2B3AF52400DF24B5 /* SwitchTableViewCell.m in Sources */,
+				116765F92B42104000DF24B5 /* Settings.m in Sources */,
 				11C855112A2582E400DF24B5 /* NXUSBDevice.m in Sources */,
 				11C855132A2582E400DF24B5 /* NXUSBDeviceEnumerator.m in Sources */,
 				A7C4EA1620EE2D1B0026FFC9 /* MainViewController.m in Sources */,
@@ -445,6 +483,7 @@
 				A78D523520F343EC0045FC4F /* AboutScreenViewController.m in Sources */,
 				A7FDBE1920EE27DD00E59587 /* AppDelegate.m in Sources */,
 				A7F0A88F20F48492001C9D07 /* Model.xcdatamodeld in Sources */,
+				1158D0002B3AF5CE00DF24B5 /* SettingsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
