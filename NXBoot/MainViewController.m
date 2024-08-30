@@ -443,10 +443,21 @@ typedef NS_ENUM(NSInteger, TableSection) {
     NSError *error = nil;
     Payload *payload = [self.payloadStorage importPayload:url.path move:YES error:&error];
     if (payload) {
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.payloads.count inSection:TableSectionPayloads];
+        [self.tableView beginUpdates];
         [self.payloads addObject:payload];
         [self.payloadStorage storePayloadSortOrder:self.payloads];
-        [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        if (self.payloads.count == 1 && !self.editing) {
+            // remove add payload cell
+            NSIndexPath *addButtonPath = [NSIndexPath indexPathForRow:0 inSection:TableSectionPayloads];
+            [self.tableView deleteRowsAtIndexPaths:@[addButtonPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            // simultaneously insert the first entry below it
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:TableSectionPayloads];
+            [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        } else {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:(self.payloads.count - 1) inSection:TableSectionPayloads];
+            [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
+        [self.tableView endUpdates];
     } else {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Import Failed"
                                                                        message:error.localizedDescription
