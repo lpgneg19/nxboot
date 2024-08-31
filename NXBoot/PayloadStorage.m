@@ -217,7 +217,7 @@ static NSString *const NXBootPayloadsExplicitOrder = @"NXBootPayloadsExplicitOrd
     [self.userDefaults setObject:order forKey:NXBootPayloadsExplicitOrder];
 }
 
-- (Payload *)importPayload:(NSString *)filePath move:(BOOL)moveFile error:(NSError **)error {
+- (nullable Payload *)importPayload:(NSString *)filePath move:(BOOL)moveFile error:(NSError **)error {
     NSString *targetPath = [self.payloadsDir stringByAppendingPathComponent:filePath.lastPathComponent];
     if (targetPath.pathExtension.length == 0) {
         targetPath = [targetPath stringByAppendingPathExtension:@"bin"];

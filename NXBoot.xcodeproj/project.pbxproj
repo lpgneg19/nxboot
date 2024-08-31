@@ -410,8 +410,8 @@
 			projectRoot = "";
 			targets = (
 				A7FDBE1320EE27DD00E59587 /* NXBoot */,
-				119EEF7C2B499DF000DF24B5 /* NXBootKit */,
 				A795B6B421015F880008820F /* NXBootCmd */,
+				119EEF7C2B499DF000DF24B5 /* NXBootKit */,
 			);
 		};
 /* End PBXProject section */

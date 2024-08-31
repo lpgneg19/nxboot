@@ -21,7 +21,7 @@ extern NSNotificationName const NXBootPayloadStorageChangedExternally;
 
 - (NSArray<Payload *> *)loadPayloads;
 - (void)storePayloadSortOrder:(NSArray<Payload *> *)payloads;
-- (Payload *)importPayload:(NSString *)filePath move:(BOOL)moveFile error:(NSError **)error;
+- (nullable Payload *)importPayload:(NSString *)filePath move:(BOOL)moveFile error:(NSError **)error;
 - (BOOL)renamePayload:(nonnull Payload *)payload withNewName:(nonnull NSString *)name error:(NSError **)error;
 - (BOOL)deletePayload:(nonnull Payload *)payload error:(NSError **)error;
 
