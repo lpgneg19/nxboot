@@ -25,7 +25,7 @@ There is no ETA on those, it's just a bunch of ideas that I think are nice to ha
 
 ## Prerequisites
 
-* A jailbroken iOS device with firmware 11.0-14.2 (later iOS versions are most likely fine too)
+* A jailbroken or TrollStore iOS device with iOS 9 or later
 * Proper sandbox patches installed by the jailbreak (unc0ver works as-is)
 * A USB 3 Type A to Type C cable
 * An OTG (Lightning to USB 2.0 or 3.0) adapter. Apple's costs $35, and cheaper third-party adapters may work.
