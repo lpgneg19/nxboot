@@ -56,14 +56,14 @@ enum SettingsSection {
             cell.customLabel.text = @"Allow crash reports";
             cell.customSwitch.on = Settings.allowCrashReports;
             [cell.customSwitch addTarget:self
-                                  action:@selector(setAllowCrashReports:)
+                                  action:@selector(setEnableCrashReports:)
                         forControlEvents:UIControlEventTouchUpInside];
             break;
         case SettingsSectionReportUsage:
             cell.customLabel.text = @"Allow usage pings";
             cell.customSwitch.on = Settings.allowUsagePings;
             [cell.customSwitch addTarget:self
-                                  action:@selector(setAllowUsagePings:)
+                                  action:@selector(setEnableUsagePings:)
                         forControlEvents:UIControlEventTouchUpInside];
             break;
     }
