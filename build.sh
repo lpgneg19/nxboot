@@ -92,8 +92,7 @@ echo "Building nxboot macOS tool..."
 clang "${cmd_srcs[@]}" "${cmd_cflags[@]}" "${cmd_fwkflags[@]}" "${cmd_ldflags[@]}" -arch x86_64 -mmacosx-version-min=10.11 -o "$tmpdir/macos/nxboot.x86_64"
 clang "${cmd_srcs[@]}" "${cmd_cflags[@]}" "${cmd_fwkflags[@]}" "${cmd_ldflags[@]}" -arch arm64 -mmacosx-version-min=11.0 -o "$tmpdir/macos/nxboot.arm64"
 lipo -create -output "$distdir/macos/nxboot" "$tmpdir/macos/nxboot".*
-codesign -i com.mologie.NXBootCmd -s TKJER33PRC -o kill,hard,library,runtime "$distdir/macos/nxboot"
-echo "Signed macOS executable available at $distdir/macos/nxboot"
+echo "macOS executable available at $distdir/macos/nxboot"
 
 #
 # package build
