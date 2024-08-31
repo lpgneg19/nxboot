@@ -25,7 +25,7 @@ for arch in iphoneos-arm iphoneos-arm64; do
 
   # application
   mkdir -p "$datadir/Applications"
-  rsync -r "$releasedir/NXBoot.app" "$datadir/Applications/"
+  rsync -a --delete "$releasedir/NXBoot.app" "$datadir/Applications/"
   test "$arch" = "iphoneos-arm" || cp "$releasedir/NXBoot.arm64" "$datadir/Applications/NXBoot.app/NXBoot"
 
   # cmdline tool
