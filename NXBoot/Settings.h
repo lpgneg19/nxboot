@@ -6,6 +6,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, class, assign) BOOL rememberPayload;
 @property (nonatomic, class, strong, nullable) NSString *lastPayloadFileName;
+@property (nonatomic, class, readonly) BOOL appCenterSupported;
 @property (nonatomic, class, assign) BOOL allowCrashReports;
 @property (nonatomic, class, assign) BOOL allowUsagePings;
 
