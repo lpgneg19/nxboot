@@ -26,7 +26,7 @@
     </div>
     <div id="depiction">
       <p>NXBoot enables starting custom boot code on the Nintendo Switch through the Fusée Gelée hardware exploit.</p>
-      <p>A jailbreak is required. For jailbreaking info visit <a href="https://reddit.com/r/jailbreak">/r/jailbreak</a>. Please keep in mind that jailbreaking is detrimental to your phone's security. You should never jailbreak a phone that stores sensitive data. The minimum supported iOS version is iOS 9.0.</p>
+      <p>A jailbreak or TrollStore is required. Please keep in mind that jailbreaking is detrimental to your phone's security. You should never jailbreak a phone that stores sensitive data. The minimum supported iOS version is iOS 9.0.</p>
       <p>
         <b>Add the following repository to your package manager to install NXBoot:</b>
       </p>
@@ -76,7 +76,7 @@
 
       <h2>FAQ</h2>
       <p>
-        <b>I don't have a jailbreak. Can this work as self-signed IPA too?</b><br/>
+        <b>I don't have a jailbreak. Can this work as IPA too?</b><br/>
         Only if you have a device that is compatible with <a href="https://github.com/opa334/TrollStore">TrollStore</a>. Otherwise it is impossible, because a side-loaded IPA cannot get any sandbox exceptions, which NXBoot requires for raw USB device access.
       </p>
       <p>
@@ -86,7 +86,7 @@
       </p>
       <p>
         <b>Does it work without a Lightning port (USB-C Apple devices)?</b><br/>
-        I don't know. Please send me an email if it does!
+        I don't know. There is a report of one TrollStore user that it does work. Please send me an email if it works for you too!
       </p>
       <p>
         <b>Does it work without a Lightning OTG adapter?</b><br/>
@@ -110,7 +110,7 @@
       </p>
       <p>
         <b>Nintendo Switch requirements?</b><br/>
-        Any first generation Nintendo Switch with any firmware will work. There are reports about patched Nintendo Switch hardware on which the exploit no longer runs, but any switch purchased before 2018-07 should be safe.
+        Only some first-generation Nintendo Switch consoles will work. Fusée Gelée was patched after roughly one year, but any device purchased before July 2018 should be safe (and some after). There is an <a href="https://damota.me/ssnc/checker">online tool</a> to check your serial.
       </p>
       <p>
         <b>Is this app free?</b><br/>
@@ -122,7 +122,7 @@
       </p>
       <p>
         <b>What is the difference between your command-line tool and others?</b><br/>
-        The functionality is most likely equivalent, but nxboot has zero dependencies (it works directly with IOKit) and can any payload out of the box.
+        None except ease of use: NXBoot has no external dependencies (it works directly with IOKit, so no Python, libusb, etc. are required) and can run any payload out of the box. It can also run in the background to start payloads automatically.
       </p>
       <hr/>
 
