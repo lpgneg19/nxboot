@@ -32,7 +32,9 @@ echo "Building IPA..."
 rm -rf DerivedData/ipa
 mkdir -p DerivedData/ipa/Payload
 ditto DerivedData/NXBoot/Build/Products/Release-iphoneos/NXBoot.app DerivedData/ipa/Payload/NXBoot.app
-(cd DerivedData/ipa && COPYFILE_DISABLE=1 zip -r "../../$distdir/iphoneos/NXBoot_$version-$buildno.tipa" "Payload" -x "._*" -x ".DS_Store" -x "__MACOSX")
+tipa=$distdir/iphoneos/NXBoot_$version-$buildno.tipa
+rm -f "$tipa"
+(cd DerivedData/ipa && COPYFILE_DISABLE=1 zip -r "../../$tipa" "Payload" -x "._*" -x ".DS_Store" -x "__MACOSX")
 
 echo "Exporting debug information..."
 ditto "$releasedir/NXBoot.app.dSYM" "$distdir/iphoneos/NXBoot_$version-$buildno.app.dSYM"
