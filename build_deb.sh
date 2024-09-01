@@ -10,7 +10,7 @@ for arch in iphoneos-arm iphoneos-arm64; do
   if [ "$arch" = "iphoneos-arm" ]; then
     distdir=/
   else
-    distdir=/var/jb
+    distdir=/var/jb/
   fi
 
   archdir="$dpkgdir/$arch"
@@ -20,7 +20,9 @@ for arch in iphoneos-arm iphoneos-arm64; do
 
   # control file
   mkdir -p "$ctrldir"
-  sed "s/Version: PLACEHOLDER/Version: $version-$buildno/;s/Architecture: iphoneos-arm/Architecture: ${arch}/" DEBIAN/control > $ctrldir/control
+  sed "s/Version: PLACEHOLDER/Version: $version-$buildno/;
+       s/Architecture: iphoneos-arm/Architecture: ${arch}/;
+       s|Icon: file:///|Icon: file://${distdir}|" DEBIAN/control > $ctrldir/control
   cp DEBIAN/postinst "$ctrldir/"
 
   # application
