@@ -27,8 +27,8 @@ There is no ETA on those, it's just a bunch of ideas that I think are nice to ha
 
 * A jailbroken or TrollStore iOS device with iOS 9 or later
 * Proper sandbox patches installed by the jailbreak (unc0ver works as-is)
-* A USB 3 Type A to Type C cable
-* An OTG (Lightning to USB 2.0 or 3.0) adapter. Apple's costs $35, and cheaper third-party adapters may work.
+* For devices with Lightning port: An OTG (Lightning to USB 2.0 or 3.0) adapter. Apple's costs $35, and cheaper third-party adapters may work. Attached to that, a A USB 2/3 Type A to Type C cable.
+* For devices with USB-C port: A USB 2/3 Type C to Type C cable.
 
 ## Installation
 
