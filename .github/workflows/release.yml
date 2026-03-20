@@ -14,6 +14,11 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Setup Xcode
+        uses: lpgneg19/setup-xcode@v2
+        with:
+          xcode-version: '26.4-beta'
+
       - name: Install XcodeGen
         run: brew install xcodegen
 
