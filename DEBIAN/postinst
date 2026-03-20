@@ -1,3 +1,0 @@
-#!/bin/sh
-echo "Terminating previous NXBoot instance ..."
-killall NXBoot 2&>/dev/null || true

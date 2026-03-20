@@ -489,6 +489,12 @@ BOOL NXExecDesc(struct NXExecDesc const *desc, NSData *relocator, NSData *image,
     return NO;
 }
 
+#import "NXUSBDevice.h"
+
+kern_return_t NXReadPipeTO(NXUSBSubInterface **intf, UInt8 pipeRef, void *buf, UInt32 *size, UInt32 timeout) {
+    return NXCOMCall(intf, ReadPipeTO, pipeRef, buf, size, timeout, timeout);
+}
+
 BOOL NXExec(NXUSBDevice *device, NSData *relocator, NSData *image, NSString **err) {
     if (!device->_intf || !relocator) {
         return NO;

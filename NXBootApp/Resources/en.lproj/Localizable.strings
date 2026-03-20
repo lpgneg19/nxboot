@@ -1,0 +1,54 @@
+/* Dashboard */
+"Dashboard" = "Dashboard";
+"No Device Connected" = "No Device Connected";
+"Nintendo Switch Connected (RCM)" = "Nintendo Switch Connected (RCM)";
+"Tegra X1 in Recovery Mode (RCM)" = "Tegra X1 in Recovery Mode (RCM)";
+"Core Actions" = "Core Actions";
+"Inject Payload" = "Inject Payload";
+"Reboot to RCM" = "Reboot to RCM";
+"Enable Auto-Boot" = "Enable Auto-Boot";
+"Auto-Boot Description" = "When enabled, the default payload will be injected automatically when a device is connected.";
+"Select Payload" = "Select Payload";
+
+/* Payloads */
+"Payloads" = "Payloads";
+"Add Payload" = "Add Payload";
+"Delete" = "Delete";
+"Name" = "Name";
+"Size" = "Size";
+"Date Added" = "Date Added";
+
+/* Hekate */
+"Hekate" = "Hekate";
+"Hekate Options" = "Hekate Options";
+"Boot Target" = "Boot Target";
+"Menu" = "Menu";
+"Entry ID" = "Entry ID";
+"Entry Index" = "Entry Index";
+"USB Mass Storage (UMS)" = "USB Mass Storage (UMS)";
+"UMS Target" = "UMS Target";
+"SD Card" = "SD Card";
+"eMMC BOOT0" = "eMMC BOOT0";
+"eMMC BOOT1" = "eMMC BOOT1";
+"eMMC GPP" = "eMMC GPP";
+"emuMMC BOOT0" = "emuMMC BOOT0";
+"emuMMC BOOT1" = "emuMMC BOOT1";
+"emuMMC GPP" = "emuMMC GPP";
+"Show Launch Log" = "Show Launch Log";
+"Hekate Not Supported" = "The selected payload does not appear to be Hekate or is an unsupported version.";
+
+/* Logs */
+"Logs" = "Logs";
+"System" = "System";
+"Serial (EP1)" = "Serial (EP1)";
+"Clear Logs" = "Clear Logs";
+
+/* Help & About */
+"Help" = "Help";
+"About" = "About";
+"About NXBoot" = "About NXBoot";
+"Version" = "Version";
+"Install CLI Tool" = "Install CLI Tool";
+"CLI tool is already installed." = "CLI tool is already installed.";
+"The CLI tool has been successfully installed to /usr/local/bin/nxboot" = "The CLI tool has been successfully installed to /usr/local/bin/nxboot";
+"Failed to install CLI tool: %@" = "Failed to install CLI tool: %@";

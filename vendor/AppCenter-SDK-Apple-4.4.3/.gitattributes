@@ -1,3 +1,0 @@
-AppCenter filter=lfs diff=lfs merge=lfs -text
-AppCenterAnalytics filter=lfs diff=lfs merge=lfs -text
-AppCenterCrashes filter=lfs diff=lfs merge=lfs -text

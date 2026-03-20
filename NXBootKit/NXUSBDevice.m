@@ -21,4 +21,8 @@
     }
 }
 
+- (NXUSBDeviceInterface **)deviceInterface {
+    return _intf;
+}
+
 @end

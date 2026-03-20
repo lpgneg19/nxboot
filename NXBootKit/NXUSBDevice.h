@@ -15,6 +15,7 @@ NXBOOTKIT_PUBLIC
 }
 @property (weak, nonatomic) NXUSBDeviceEnumerator *parentEnum;
 @property (strong, nonatomic) NSString *name;
+@property (nonatomic, readonly) NXUSBDeviceInterface **deviceInterface;
 - (void)invalidate;
 @end
 

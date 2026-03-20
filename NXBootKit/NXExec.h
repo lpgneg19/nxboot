@@ -28,5 +28,7 @@ NXBOOTKIT_PUBLIC struct NXExecDesc NXExecAcquireDeviceInterface(NXUSBDeviceInter
 NXBOOTKIT_PUBLIC void NXExecReleaseDeviceInterface(struct NXExecDesc const *desc);
 NXBOOTKIT_PUBLIC BOOL NXExecDesc(struct NXExecDesc const *desc, NSData *relocator, NSData *image, NSString **err);
 
+NXBOOTKIT_PUBLIC kern_return_t NXReadPipeTO(NXUSBSubInterface **intf, UInt8 pipeRef, void *buf, UInt32 *size, UInt32 timeout);
+
 @class NXUSBDevice;
 NXBOOTKIT_PUBLIC BOOL NXExec(NXUSBDevice *device, NSData *relocator, NSData *image, NSString **err);

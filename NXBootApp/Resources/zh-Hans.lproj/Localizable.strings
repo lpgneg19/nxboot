@@ -1,0 +1,54 @@
+/* Dashboard */
+"Dashboard" = "仪表盘";
+"No Device Connected" = "未连接设备";
+"Nintendo Switch Connected (RCM)" = "Nintendo Switch 已连接 (RCM)";
+"Tegra X1 in Recovery Mode (RCM)" = "Tegra X1 处于恢复模式 (RCM)";
+"Core Actions" = "核心操作";
+"Inject Payload" = "注入 Payload";
+"Reboot to RCM" = "重启至 RCM";
+"Enable Auto-Boot" = "开启自动注入";
+"Auto-Boot Description" = "开启后，设备连接时将自动注入预设的 Payload。";
+"Select Payload" = "选择 Payload";
+
+/* Payloads */
+"Payloads" = "Payload 列表";
+"Add Payload" = "添加";
+"Delete" = "删除";
+"Name" = "名称";
+"Size" = "大小";
+"Date Added" = "添加日期";
+
+/* Hekate */
+"Hekate" = "Hekate 配置";
+"Hekate Options" = "Hekate 专用选项";
+"Boot Target" = "启动目标";
+"Menu" = "菜单";
+"Entry ID" = "启动项 ID";
+"Entry Index" = "启动项 索引";
+"USB Mass Storage (UMS)" = "USB 大容量存储 (UMS)";
+"UMS Target" = "UMS 目标";
+"SD Card" = "SD 卡";
+"eMMC BOOT0" = "eMMC BOOT0";
+"eMMC BOOT1" = "eMMC BOOT1";
+"eMMC GPP" = "eMMC GPP";
+"emuMMC BOOT0" = "emuMMC BOOT0";
+"emuMMC BOOT1" = "emuMMC BOOT1";
+"emuMMC GPP" = "emuMMC GPP";
+"Show Launch Log" = "显示启动日志";
+"Hekate Not Supported" = "当前选中的 Payload 似乎不是 Hekate，或版本不受支持。";
+
+/* Logs */
+"Logs" = "运行日志";
+"System" = "系统";
+"Serial (EP1)" = "串口 (EP1)";
+"Clear Logs" = "清除日志";
+
+/* Help & About */
+"Help" = "帮助";
+"About" = "关于";
+"About NXBoot" = "关于 NXBoot";
+"Version" = "版本";
+"Install CLI Tool" = "安装命令行工具";
+"CLI tool is already installed." = "命令行工具已安装。";
+"The CLI tool has been successfully installed to /usr/local/bin/nxboot" = "命令行工具已成功安装至 /usr/local/bin/nxboot";
+"Failed to install CLI tool: %@" = "安装命令行工具失败：%@";

@@ -1,0 +1,68 @@
+name: NXBoot
+options:
+  bundleIdPrefix: io.mologie
+  deploymentTarget:
+    iOS: 12.0
+    macOS: 14.0
+settings:
+  configs:
+    Debug:
+      CODE_SIGNING_REQUIRED: NO
+      CODE_SIGN_IDENTITY: ""
+      HEADER_SEARCH_PATHS: $(inherited) $(PROJECT_DIR)
+    Release:
+      CODE_SIGNING_REQUIRED: NO
+      CODE_SIGN_IDENTITY: ""
+      HEADER_SEARCH_PATHS: $(inherited) $(PROJECT_DIR)
+
+targets:
+  NXBootCmd:
+    type: tool
+    platform: macOS
+    sources: 
+      - NXBootCmd
+      - NXBootKit
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: io.mologie.nxboot.cmd
+      MACOSX_DEPLOYMENT_TARGET: 14.0
+      CODE_SIGNING_ALLOWED: NO
+      MARKETING_VERSION: 2.1.0
+      CURRENT_PROJECT_VERSION: 1
+      GCC_PREPROCESSOR_DEFINITIONS: $(inherited) NXBOOT_VERSION=\"2.1.0\" NXBOOT_BUILDNO=1
+    frameworks:
+      - framework: IOKit
+      - framework: CoreFoundation
+      - framework: Foundation
+
+  NXBootApp:
+    type: application
+    platform: macOS
+    sources:
+      - path: NXBootApp
+      - path: NXBootKit
+    resources:
+      - path: NXBootApp/Assets.xcassets
+      - path: NXBootApp/Resources
+      - path: Shared/intermezzo.bin
+    settings:
+      PRODUCT_NAME: NXBoot
+      PRODUCT_BUNDLE_IDENTIFIER: io.mologie.nxboot.app
+      INFOPLIST_FILE: NXBootApp/Info.plist
+      SWIFT_VERSION: 5.0
+      SDKROOT: macosx
+      MACOSX_DEPLOYMENT_TARGET: 14.0
+      ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+      MARKETING_VERSION: 2.1.0
+      CURRENT_PROJECT_VERSION: 1
+      NSHumanReadableCopyright: "© 2018-2024 Oliver Kuckertz, © 2026 SteveShi"
+      HEADER_SEARCH_PATHS: $(inherited) $(PROJECT_DIR)
+      OTHER_SWIFT_FLAGS: $(inherited)
+      GCC_PREPROCESSOR_DEFINITIONS: $(inherited) NXBOOTMAC_BUILDING=1
+      SWIFT_OBJC_BRIDGING_HEADER: NXBootApp/NXBoot-Bridging-Header.h
+    frameworks:
+      - framework: IOKit
+      - framework: CoreFoundation
+      - framework: Foundation
+    dependencies:
+      - target: NXBootCmd
+        embed: true
