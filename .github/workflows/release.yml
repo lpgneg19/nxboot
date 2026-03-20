@@ -1,0 +1,81 @@
+name: Build & Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Generate Project
+        run: xcodegen generate
+
+      - name: Build and Archive
+        run: |
+          xcodebuild archive \
+            -scheme NXBootApp \
+            -configuration Release \
+            -archivePath NXBoot.xcarchive \
+            -destination "platform=macOS" \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO
+
+      - name: Export App
+        run: |
+          mkdir -p build/app
+          cp -R NXBoot.xcarchive/Products/Applications/NXBoot.app build/app/
+
+      - name: Create ZIP
+        run: |
+          cd build/app
+          zip -r ../../NXBoot.zip NXBoot.app
+
+      - name: Create DMG
+        run: |
+          mkdir -p build/dmg
+          cp -R build/app/NXBoot.app build/dmg/
+          hdiutil create -volname "NXBoot" -srcfolder build/dmg -ov -format UDZO NXBoot.dmg
+
+      - name: Extract Release Notes
+        id: release_notes
+        run: |
+          # Try to get the latest version's notes from CHANGELOG.md
+          if [ -f CHANGELOG.md ]; then
+            # Extract content between the first two ## headers
+            sed -n '/^## \[2.1.0\]/,/^## /p' CHANGELOG.md | sed '1d;$d' > changelog.txt
+          else
+            git log -n 10 --pretty=format:"* %s" > changelog.txt
+          fi
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            NXBoot.dmg
+            NXBoot.zip
+          body_path: changelog.txt
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Artifacts (Manual Run)
+        uses: actions/upload-artifact@v4
+        if: github.event_name == 'workflow_dispatch'
+        with:
+          name: NXBoot-Build
+          path: |
+            NXBoot.dmg
+            NXBoot.zip

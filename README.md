@@ -1,6 +1,6 @@
 # NXBoot
 
-This application enables provisioning a Tegra X1 powered device with early boot code using an iOS or macOS device. For example, you may use this application to start the Hekate Bootloader or the Lakka Linux Distrobution (RetroArch) on a supported Nintendo Switch.
+This application enables provisioning a Tegra X1 powered device with early boot code using a macOS device. For example, you may use this application to start the Hekate Bootloader or the Lakka Linux Distrobution (RetroArch) on a supported Nintendo Switch.
 
 **Disclaimer:** Early boot code has full access to the device it runs on and can damage it. No boot code is shipped with this application. Responsibility for consequences of using this application and executing boot code remains with the user.
 
