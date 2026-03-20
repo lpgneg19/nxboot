@@ -17,7 +17,7 @@ jobs:
       - name: Setup Xcode
         uses: lpgneg19/setup-xcode@v2
         with:
-          xcode-version: '26.2'
+          xcode-version: 'latest-stable'
 
       - name: Install XcodeGen
         run: brew install xcodegen
